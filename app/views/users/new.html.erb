@@ -1,0 +1,33 @@
+<% if alert %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <%= alert %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% end %>
+<div class="text-center">  
+  <main class="form-signin w-100 m-auto" style="max-width: 330px">
+    <h1 class="h3 mb-3 fw-normal">Create new account</h1>
+    <%= form_with model: @user do |form| %>
+      <div class="form-floating">
+        <%= form.text_field :email, class: "form-control" %>
+        <%= form.label :email %> <br>
+      </div>
+      <div class="form-floating">
+        <%= form.password_field :password, class: "form-control" %>
+        <%= form.label :password %> <br>
+      </div>
+      <div class="form-floating">
+        <%= form.password_field :password_confirmation, class: "form-control" %>
+        <%= form.label :password_confirmation %> <br>
+      </div>
+      <%= form.submit "Create Account", :class=>"w-100 btn btn-lg btn-primary" %> <br>
+    <% end %><br>
+    <%= link_to '/auth/google_oauth2', method: :post, class: "w-100 btn btn-lg btn-primary" do %>
+      <i class="fab fa-google"></i> Sign in with Google
+    <% end %><br><br>
+    <%= link_to '/auth/facebook?scope=email', method: :post, class: "w-100 btn btn-lg btn-primary" do %>
+      <i class="fab fa-facebook"></i> Sign in with facebook
+    <% end %><br><br>
+    <%= link_to "Or Log In", "/login" , class: "w-100 btn btn-lg btn-primary" %>
+  </main>
+</div>

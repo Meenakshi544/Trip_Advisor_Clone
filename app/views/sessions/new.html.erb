@@ -1,0 +1,35 @@
+<% if alert %>
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <%= alert %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<% end %>
+
+
+<div class="text-center">
+  <main class="form-signin w-100 m-auto" style="max-width: 330px">
+    <h1 class="h3 mb-3 fw-normal">Login</h1>
+    <%= form_tag '/login', method: :post do %>
+      <div class="form-floating">
+        <%= text_field_tag :email, "", class: "form-control" %>
+        <%= label_tag :email %>
+      </div>
+      <div class="form-floating">
+        <%= password_field_tag :password, "", class: "form-control" %>
+        <%= label_tag :password %>
+      </div>
+        <%= submit_tag "Submit", class: "w-100 btn btn-lg btn-primary" %>
+    <%end%>
+    <br>
+    <%= link_to '/auth/google_oauth2', method: :post, class: "w-100 btn btn-lg btn-primary" do %>
+      <i class="fab fa-google"></i> Sign in with Google
+    <% end %><br><br>
+    <%= link_to '/auth/facebook?scope=email', method: :post, class: "w-100 btn btn-lg btn-primary" do %>
+      <i class="fab fa-facebook"></i> Sign in with facebook
+    <% end %><br><br>
+    <%= link_to "Create a new account", "/signup" , class: "w-100 btn btn-lg btn-primary" %>
+    
+  </main>
+</div>
+
+

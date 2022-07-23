@@ -1,0 +1,34 @@
+<% if current_user.admin %>
+  <%= link_to "Edit Hotel", hotel_edit_path(@hotel), class: "btn btn-secondary" %>
+  <%= link_to "Delete Hotel", hotel_path(@hotel), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  }, class:"btn btn-secondary" %>
+<% end %>
+
+
+<div class="container my-4">
+  <h1 class="card-title" ><%= @hotel.name %></h1>
+</div>
+<div class="row">
+  <div><%= image_tag(@hotel.image_as_potrait) %></div>
+  <div class="card mb-3 my-4 text-dark bg-light" style="width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-8">
+        <div class="card-body">
+          <p class="card-text"><b>Average rating: <%= @hotel.hotel_average_rating(@hotel) %></b></p>
+          <p class="card-text"><b><%= mail_to @hotel.contact_email, "Email Hotel" %></b></p>
+          <p class="card-text"><b>Price: <%= @hotel.price %></small>/night</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+<div>
+
+<h2>Reviews:</h2>
+<%= render @hotel.reviews %>
+ 
+  
+  
+<h2>Add a Review:</h2>
+<%= render 'reviews/form' %>
