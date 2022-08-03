@@ -15,9 +15,9 @@ Rails.application.routes.draw do
   delete "/hotels/:id", to: "hotels#destroy"
 
   #these routes are for admin approval of review
-  get "hotels/:hotel_id/:id", to: "reviews#update", as: :hotel_review_approve
-  patch "/hotels/:hotel_id/:id", to: "reviews#update"
-  delete "/hotels/:hotel_id/reviews/:id", to: "reviews#destroy", as: :hotel_review_destroy
+  get "admin/hotels/:hotel_id/:id", to: "reviews#update", as: :hotel_review_approve
+  patch "admin/hotels/:hotel_id/:id", to: "reviews#update"
+  delete "admin/hotels/:hotel_id/reviews/:id", to: "reviews#destroy", as: :hotel_review_destroy
 
   # Defines the root path route ("/")
   # root "articles#index"
