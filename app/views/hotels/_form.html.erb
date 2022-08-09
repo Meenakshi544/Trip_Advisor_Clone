@@ -2,22 +2,21 @@
   <div>
     <%= form.label :name %><br>
     <%= form.text_field :name %>
-    <% hotel.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
   </div>
 
   <div>
     <%= form.label :price %><br>
     <%= form.text_field :price %>
-    <% hotel.errors.full_messages_for(:price).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
   </div>
 
   <div>
     <%= form.label :contact_email %><br>
     <%= form.text_field :contact_email %>
+  </div>
+
+  <div>
+    <%= form.label :location %><br>
+    <%= form.text_field :location %>
   </div>
 
   <div>

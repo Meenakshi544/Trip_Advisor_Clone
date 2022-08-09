@@ -30,7 +30,8 @@ hotels=[]
 8.times do |index|
   hotels[index]=  Hotel.new(name: "Title #{index+1}",
                   price: "#{(index+1)*rand(1000..1200)}",
-                  contact_email: "hotel#{index+1}@gmail.com"
+                  contact_email: "hotel#{index+1}@gmail.com",
+                  location: "Place #{rand(1..4)}"
                   )
   hotels[index].image.attach(io: File.open("./app/assets/images/hotel#{index+1}.jpg"), filename: "jw-mariot.jpg", content_type: "image/jpeg")
   hotels[index].save

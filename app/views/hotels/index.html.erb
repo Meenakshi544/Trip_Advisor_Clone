@@ -1,4 +1,9 @@
-
+<% if alert %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 <%= search_form_for @q, remote: true do |f| %>
   <%= f.label :price_eq, 'Enter minimum to maximum price:' %><br>
   <%= f.search_field :price_gteq %> to
@@ -9,8 +14,13 @@
   <%= f.label :reviews_rating_eq, 'Enter minimum to maximum rating:' %><br>
   <%= f.search_field :reviews_rating_gteq %> to
   <%= f.search_field :reviews_rating_lteq %>
-
   <%= f.submit "search" %>
+
+  <br><br>
+  <%= f.label :location_cont, 'Enter the location:' %><br>
+  <%= f.search_field :location_cont %>
+  <%= f.submit "search" %>
+
 <% end %>
 <h1>Hotels</h1>                       
 <div class="container card-deck">
@@ -24,6 +34,7 @@
             </h1>
             <p class="card-text"><b><%= hotel.price %></small>/night | <%= hotel.hotel_average_rating(hotel) %></b></p>
             <p class="card-text"><b><%= hotel.contact_email %></b></p>
+            <p class="card-text"><b><%= hotel.location %></b></p>
           </div>
         </div>
       </div>

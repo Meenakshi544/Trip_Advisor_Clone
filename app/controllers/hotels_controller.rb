@@ -1,7 +1,6 @@
 class HotelsController < ApplicationController
   def index
-    @hotels=Hotel
-      .all
+    @hotels=Hotel.all
     @q = Hotel.ransack(params[:q])
     @hotels = @q.result.includes(:reviews).page(params[:page]).per(6)
     if current_user
@@ -25,7 +24,8 @@ class HotelsController < ApplicationController
       if current_user.admin
         @hotel = Hotel.new
       else
-        redirect_to '/signup'
+        flash[:alert] = "User not authorized to perform this operation"          
+        redirect_to "/"
       end
     else
       redirect_to '/login'
@@ -37,7 +37,8 @@ class HotelsController < ApplicationController
     if @hotel.save
       redirect_to @hotel
     else
-      render :new, status: :unprocessable_entity
+      flash[:alert] =@hotel.errors.full_messages
+      redirect_to hotel_new_path, status: :unprocessable_entity
     end
   end
 
@@ -46,7 +47,8 @@ class HotelsController < ApplicationController
       if current_user.admin
         @hotel = Hotel.find(params[:id])
       else
-        redirect_to '/signup'
+        flash[:alert] = "User not authorized to perform this operation"          
+        redirect_to "/"
       end
     else
       redirect_to '/login'
@@ -55,7 +57,6 @@ class HotelsController < ApplicationController
 
   def update
     @hotel = Hotel.find(params[:id])
-
     if @hotel.update(hotel_params)
       redirect_to @hotel
     else
@@ -66,13 +67,11 @@ class HotelsController < ApplicationController
   def destroy
     @hotel = Hotel.find(params[:id])
     @hotel.destroy
-
     redirect_to root_path, status: :see_other
   end
 
   private
-
   def hotel_params
-    params.require(:hotel).permit(:name, :price, :contact_email, :image)
+    params.require(:hotel).permit(:name, :price, :contact_email, :location,:image)
   end
 end

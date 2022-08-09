@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_22_073006) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_09_085512) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -55,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_073006) do
     t.string "contact_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "location"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -65,6 +66,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_073006) do
     t.datetime "updated_at", null: false
     t.integer "approved_by", default: 0
     t.index ["hotel_id"], name: "index_reviews_on_hotel_id"
+  end
+
+  create_table "user_comments", force: :cascade do |t|
+    t.text "body"
+    t.integer "review_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["review_id"], name: "index_user_comments_on_review_id"
   end
 
   create_table "usercomments", force: :cascade do |t|
@@ -88,5 +97,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_22_073006) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "reviews", "hotels"
+  add_foreign_key "user_comments", "reviews"
   add_foreign_key "usercomments", "reviews"
 end

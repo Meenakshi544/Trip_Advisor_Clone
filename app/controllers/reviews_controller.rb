@@ -1,11 +1,14 @@
 class ReviewsController < ApplicationController
   def create
     @hotel = Hotel.find(params[:hotel_id])
-    @review = @hotel.reviews.create(review_params)
-    redirect_to hotel_path(@hotel)
+    @review = @hotel.reviews.new(review_params)
+    if @review.save
+      redirect_to hotel_path(@hotel)
+    else
+      flash[:alert] =@review.errors.full_messages
+      redirect_to hotel_path(@hotel), status: :unprocessable_entity
+    end
   end
-
-  
 
   def update
     @hotel = Hotel.find(params[:hotel_id])
@@ -20,9 +23,7 @@ class ReviewsController < ApplicationController
   def destroy
     @hotel = Hotel.find(params[:hotel_id])
     @review= @hotel.reviews.find(params[:id])
-
     @review.destroy
-
     redirect_to hotel_path(@hotel), status: :see_other
   end
 
