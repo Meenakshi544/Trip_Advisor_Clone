@@ -1,7 +1,7 @@
 class Hotel < ApplicationRecord
   has_many :reviews, dependent: :destroy
   validates :name, presence: true, uniqueness: true
-  validates :price, presence: true, length: { minimum: 4 }
+  validates :price, presence: true, length: { minimum: 3 }
   validates :image, presence: true
   validates :location, presence: true
   has_one_attached :image, dependent: :destroy
@@ -21,5 +21,5 @@ class Hotel < ApplicationRecord
       "no review"
     end
   end
-  
+
 end
