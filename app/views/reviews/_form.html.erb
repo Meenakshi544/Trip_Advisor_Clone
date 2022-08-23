@@ -1,17 +1,20 @@
 <%= form_with model: [ @hotel, @hotel.reviews.build ] do |form| %>
-  <p>
-    <%= form.label :rating %><br>
-    <%= form.text_field :rating, :rows=>1, :cols=>40 %>
-  </p>
-  <p>
-    <%= form.label :comment %><br>
-    <%= form.text_area :comment, :rows=>5, :cols=>40 %>
-  </p>
-  <p>
+  <div>
+    <%= form.label :rating %>
+    <%= form.text_field :rating, :rows=>1, :cols=>40, :placeholder=>"Enter rating from 1 to 5" %>
+  </div>
+  <br>
+  <div>
+    <%= form.label :comment %>
+    <%= form.text_area :comment, :rows=>5, :cols=>100, :placeholder=>"Enter some review about the hotel" %>
+  </div>
+  <br>
+  <div>
     <%= form.label :pictures %>
     <%= form.file_field :pictures, multiple: true %>
-  </p>
-  <p>
+  </div>
+  <br>
+  <div>
     <%= form.submit %>
-  </p>
+  </div>
 <% end %>

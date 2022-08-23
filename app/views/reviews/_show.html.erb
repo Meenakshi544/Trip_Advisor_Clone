@@ -1,0 +1,9 @@
+<p>
+  <b><%= review.rating %></b>
+</p>
+<p>
+  "<%= review.comment %>"
+</p>
+<% review.pictures_as_thumbnail.each do |picture| %>
+  <%= image_tag(picture) %>
+<% end %>

@@ -31,23 +31,24 @@ hotels=[]
   hotels[index]=  Hotel.new(name: "Title #{index+1}",
                   price: "#{(index+1)*rand(1000..1200)}",
                   contact_email: "hotel#{index+1}@gmail.com",
-                  location: "Place #{rand(1..4)}"
+                  location: "Location #{rand(1..4)}"
                   )
   hotels[index].image.attach(io: File.open("./app/assets/images/hotel#{index+1}.jpg"), filename: "jw-mariot.jpg", content_type: "image/jpeg")
   hotels[index].save
+  puts "hotel #{index} created"
 end
 
 
 Hotel.all.each do |hotel|
   review=hotel.reviews.new(rating: (rand()*2+3).round(1), 
   comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  approved_by: 102
+  approved_by: User.select(:id).where(admin: true)[0].id
   )
   review.pictures.attach(io: File.open("./app/assets/images/hotel1.jpg"), filename: "jw-mariot.jpg", content_type: "image/jpeg")
   review.save
   review.usercomments.create(body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.")
   
-  hotel.reviews.create(rating: (rand()*2+3).round(1), 
+  hotel.reviews.create(rating: (rand()*3+2).round(1), 
   comment: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   )
 end

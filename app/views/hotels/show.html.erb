@@ -1,4 +1,9 @@
-
+<% if alert %>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 <% if current_user.admin %>
   <%= link_to "Edit Hotel", hotel_edit_path(@hotel), class: "btn btn-secondary" %>
   <%= link_to "Delete Hotel", hotel_path(@hotel), data: {
@@ -17,7 +22,7 @@
     <div class="row g-0">
       <div class="col-md-8">
         <div class="card-body">
-          <p class="card-text"><b>Average rating: <%= @hotel.hotel_average_rating(@hotel) %></b></p>
+          <p class="card-text"><b>Average rating: <%= render "average_rating", hotel: @hotel %></b></p>
           <p class="card-text"><b><%= mail_to @hotel.contact_email, "Email Hotel" %></b></p>
           <p class="card-text"><b>Price: <%= @hotel.price %></small>/night</b></p>
           <p class="card-text"><b>Location: <%= @hotel.location %></small></b></p>
@@ -27,15 +32,12 @@
   </div>
 <div>
 
-<h2>Reviews:</h2>
+<h2>User Reviews:</h2>
+<% if @hotel.average_rating==0 %>
+  <h6>No reviews to show, go on and add a review</h6>
+<% end %>
 <%= render @hotel.reviews %>
  
- 
+<hr>
 <h2>Add a Review:</h2>
-<% if alert %>
-  <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    <%= alert %>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
 <%= render 'reviews/form' %>

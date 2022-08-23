@@ -1,55 +1,24 @@
-<% if current_user.admin and review.approved_by==0 %>
-  <h3>Pending reviews</h3>
+<% if current_user.admin and review.approved_by==0  %>
   <hr>
-  <p>
-    <b><%= review.rating %></b>
-  </p>
-  <p>
-    "<%= review.comment %>"
-  </p>
-  <% review.pictures_as_thumbnail.each do |picture| %>
-    <%= image_tag(picture) %>
-  <% end %>
+  <h3>Pending Review</h3>
+  <%= render 'reviews/show', review: review %>
   <br><br>
   <%=link_to "Approve", hotel_review_approve_path(hotel_id: @hotel.id, id: review.id), class:"btn btn-secondary" %>
   <%= link_to "Destroy", hotel_review_destroy_path(hotel_id: @hotel.id, id: review.id), data: {
                   turbo_method: :delete,
                   turbo_confirm: "Are you sure?"
                 }, class:"btn btn-secondary" %>
-  <hr>
 <% else %>
   <% if review.approved_by!=0 %>
     <hr>
     <div class="my-5">
-      <p>
-        <b><%= review.rating %></b>
-      </p>
-      <p>
-        "<%= review.comment %>"
-      </p>
-      <% review.pictures_as_thumbnail.each do |picture| %>
-        <%= image_tag(picture) %>
-      <% end %>
+      <%= render 'reviews/show', review: review %>
     </div>
-    <div class="ml-9">
-      <% review.usercomments.each do |comment| %>
-        <p>
-          <strong>Comment:</strong>
-          <%= comment.body %>
-        </p>
-      <% end %>
+    <div class="ml-9 review-comment">
+      <%= render 'usercomments/comments', review: review %>
       <h2>Add a comment:</h2>
-      <%= form_with model: [@hotel, review, review.usercomments.build ] do |form| %>
-        <p>
-          <%= form.label :body %><br>
-          <%= form.text_area :body %>
-        </p>
-        <p>
-          <%= form.submit %>
-        </p>
-      <% end %>
+      <%= render 'usercomments/form', review: review %>
     </div>
-    <hr>
   <% end %>
 <% end %>
 

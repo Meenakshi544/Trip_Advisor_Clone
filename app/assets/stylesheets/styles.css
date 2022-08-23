@@ -1,0 +1,11 @@
+.hotel-title{
+  text-decoration: none;
+  color: black;
+ }
+
+ .hotel-title:hover{
+  color: blue;
+ }
+ /* .review-comment{
+  margin-left: 100px;
+ } */

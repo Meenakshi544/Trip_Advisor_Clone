@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
     @hotel = Hotel.find(params[:hotel_id])
     @review = @hotel.reviews.new(review_params)
     if @review.save
+      flash[:alert] ="Your review will displayed once approved"
       redirect_to hotel_path(@hotel)
     else
       flash[:alert] =@review.errors.full_messages
@@ -14,6 +15,7 @@ class ReviewsController < ApplicationController
     @hotel = Hotel.find(params[:hotel_id])
     @review= @hotel.reviews.find(params[:id])
     if @review.update_column(:approved_by, current_user.id)
+      @hotel.update_average_rating
       redirect_to hotel_path(@hotel)
     else
       redirect_to hotel_path(@hotel)

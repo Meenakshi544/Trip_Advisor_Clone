@@ -4,6 +4,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% end %>
+
 <%= search_form_for @q, remote: true do |f| %>
   <%= f.label :price_eq, 'Enter minimum to maximum price:' %><br>
   <%= f.search_field :price_gteq %> to
@@ -11,9 +12,9 @@
   <%= f.submit "search" %>
 
   <br><br>
-  <%= f.label :reviews_rating_eq, 'Enter minimum to maximum rating:' %><br>
-  <%= f.search_field :reviews_rating_gteq %> to
-  <%= f.search_field :reviews_rating_lteq %>
+  <%= f.label :average_rating_eq, 'Enter minimum to maximum rating:' %><br>
+  <%= f.search_field :average_rating_gteq %> to
+  <%= f.search_field :average_rating_lteq %>
   <%= f.submit "search" %>
 
   <br><br>
@@ -30,11 +31,11 @@
         <div class="card mb-4" style="width: 290px; height: 390px">
           <%= link_to image_tag(hotel.image_as_thumbnail), hotel_path(hotel), class: "card-img-top"%>  
           <div class="card-body">
-            <h1 class="card-title" > <%= link_to hotel.name, hotel_path(hotel), style: "text-decoration: none; color: black;"  %>
+            <h1 class="card-title" > <%= link_to hotel.name, hotel_path(hotel), :class=> "hotel-title"  %>
             </h1>
-            <p class="card-text"><b><%= hotel.price %></small>/night | <%= hotel.hotel_average_rating(hotel) %></b></p>
+            <p class="card-text"><b>Location: <%= hotel.location %></b></p>
+            <p class="card-text"><b><%= hotel.price %></small>/night | <%= render "average_rating", hotel: hotel %></b></p>
             <p class="card-text"><b><%= hotel.contact_email %></b></p>
-            <p class="card-text"><b><%= hotel.location %></b></p>
           </div>
         </div>
       </div>

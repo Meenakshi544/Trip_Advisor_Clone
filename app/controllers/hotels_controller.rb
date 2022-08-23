@@ -2,7 +2,7 @@ class HotelsController < ApplicationController
   def index
     @hotels=Hotel.all
     @q = Hotel.ransack(params[:q])
-    @hotels = @q.result.includes(:reviews).page(params[:page]).per(6)
+    @hotels = @q.result.page(params[:page]).per(6)
     if current_user
       render :index
     else
@@ -60,6 +60,7 @@ class HotelsController < ApplicationController
     if @hotel.update(hotel_params)
       redirect_to @hotel
     else
+      flash[:alert] =@hotel.errors.full_messages
       render :edit, status: :unprocessable_entity
     end
   end
@@ -72,6 +73,6 @@ class HotelsController < ApplicationController
 
   private
   def hotel_params
-    params.require(:hotel).permit(:name, :price, :contact_email, :location,:image)
+    params.require(:hotel).permit(:name, :price, :contact_email, :location, :image)
   end
 end

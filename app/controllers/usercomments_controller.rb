@@ -2,8 +2,13 @@ class UsercommentsController < ApplicationController
   def create
     @hotel = Hotel.find(params[:hotel_id])
     @review = @hotel.reviews.find(params[:review_id])
-    @usercomment = @review.usercomments.create(comment_params)
-    redirect_to hotel_path(@hotel)
+    @usercomment = @review.usercomments.new(comment_params)
+    if @usercomment.save
+      redirect_to hotel_path(@hotel)
+    else
+      flash[:alert]=@usercomment.errors.full_messages
+      redirect_to hotel_path(@hotel)
+    end
   end
 
   def destroy
