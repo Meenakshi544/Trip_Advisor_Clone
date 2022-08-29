@@ -35,7 +35,6 @@ hotels=[]
                   )
   hotels[index].image.attach(io: File.open("./app/assets/images/hotel#{index+1}.jpg"), filename: "jw-mariot.jpg", content_type: "image/jpeg")
   hotels[index].save
-  puts "hotel #{index} created"
 end
 
 
